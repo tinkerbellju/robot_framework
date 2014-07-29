@@ -1,0 +1,42 @@
+*** Setting ***
+Library    Selenium2Library
+Test Teardown    Close Browser
+
+*** Variables ***
+
+
+*** Testcases ***
+User Failure
+	ไปที่หน้า Login เข้าระบบตัวอย่าง
+	กรอกข้อมูลของผู้ใช้งาน    invalid    mode
+	ตรวจสอบว่าผู้ใช้งาน Log in ไม่สำเร็จ
+
+Password Failure
+	ไปที่หน้า Login เข้าระบบตัวอย่าง
+	กรอกข้อมูลของผู้ใช้งาน    demo    invalid
+	ตรวจสอบว่าผู้ใช้งาน Log in ไม่สำเร็จ
+
+Null
+	ไปที่หน้า Login เข้าระบบตัวอย่าง
+	กรอกข้อมูลของผู้ใช้งาน    ${EMPTY}    ${EMPTY}
+	ตรวจสอบว่าผู้ใช้งาน Log in ไม่สำเร็จ
+
+Invalid Login
+	ไปที่หน้า Login เข้าระบบตัวอย่าง
+	กรอกข้อมูลของผู้ใช้งาน   invalid    invalid
+	ตรวจสอบว่าผู้ใช้งาน Log in ไม่สำเร็จ
+
+
+*** Keywords ***
+ไปที่หน้า Login เข้าระบบตัวอย่าง
+	Open Browser    http://localhost:7272/html/
+
+กรอกข้อมูลของผู้ใช้งาน
+	[Arguments]	   ${username}    ${password}
+	Input Text    username_field    ${username} 
+	Input Text    password_field    ${password}
+	Click Button    login_button
+
+ตรวจสอบว่าผู้ใช้งาน Log in ไม่สำเร็จ
+	Title Should Be    Error Page
+	Wait Until Page Contains    Login failed

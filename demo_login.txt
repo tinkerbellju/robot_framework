@@ -1,0 +1,27 @@
+*** Setting ***
+Library    Selenium2Library
+Test Teardown    Close Browser
+
+*** Variables ***
+
+
+*** Testcases ***
+Login Success Case
+	ไปที่หน้า Login เข้าระบบตัวอย่าง
+	กรอกข้อมูลของผู้ใช้งาน
+	ตรวจสอบว่าผู้ใช้งาน Log in สำเร็จ
+
+
+
+*** Keywords ***
+ไปที่หน้า Login เข้าระบบตัวอย่าง
+	Open Browser    http://localhost:7272/html/
+
+กรอกข้อมูลของผู้ใช้งาน
+	Input Text    username_field    demo
+	Input Text    password_field    mode
+	Click Button    login_button
+
+ตรวจสอบว่าผู้ใช้งาน Log in สำเร็จ
+	Title Should Be    Welcome Page
+	Wait Until Page Contains    Login succeeded

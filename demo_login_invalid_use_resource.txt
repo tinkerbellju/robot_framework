@@ -1,0 +1,31 @@
+*** Setting ***
+Library    Selenium2Library
+Resource    demo_login_resource.txt
+
+*** Variables ***
+
+
+*** Testcases ***
+Invalid Login
+	[Template]  validate login system
+	#---------------------------------#
+	#    Username    |    Password    #
+	#---------------------------------#
+		invalid             mode
+		demo                invalid
+		${EMPTY}            ${EMPTY}
+		invalid             invalid
+
+
+
+*** Keywords ***
+validate login system
+	[Arguments]	   ${username}    ${password}
+	ไปที่หน้า Login เข้าระบบตัวอย่าง
+	กรอกข้อมูลของผู้ใช้งาน    ${username}    ${password}
+	ตรวจสอบว่าผู้ใช้งาน Log in ไม่สำเร็จ
+	Close Browser
+
+ตรวจสอบว่าผู้ใช้งาน Log in ไม่สำเร็จ
+	Title Should Be    Error Page
+	Wait Until Page Contains    Login failed
